@@ -1,7 +1,7 @@
 #lang scribble/manual
 @(require scribble/eval
           scribble/racket
-          "../2012/util.rkt"
+          "../scribble-util.rkt"
           (for-syntax racket/base)
           (for-label racket))
 @(require slideshow/pict)

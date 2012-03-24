@@ -2,22 +2,22 @@
 (require racket/cmdline
          "main.rkt")
 
-(define (run)
+(define (post args)
   (define pre? #f)
   (define build-dir #f)
   (define upload-profile #f)
   (define overwrite? #f)
   (define v? #f)
   (command-line
-   ;; #:argv args
+   #:argv args
    #:once-each
-   (("-p" "--pre")
-    "Link to nightly build documentation pages"
-    (set! pre? #t))
    (("-d" "--dir") build-directory
     "Put temporary files in <build-directory>"
     (set! build-dir build-directory))
-   (("-u" "--upload") profile
+   (("-n" "--nightly")
+    "Link to nightly build documentation pages"
+    (set! pre? #t))
+   (("-p" "--profile") profile
     "Upload blog according to <profile>"
     (set! upload-profile (string->symbol profile)))
    (("-f" "--force")
@@ -34,4 +34,7 @@
                 #:verbose? v?
                 #:temp-dir build-dir)))
 
-(run)
+
+;; ----
+
+(post (vector->list (current-command-line-arguments)))
