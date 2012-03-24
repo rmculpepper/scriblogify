@@ -3,7 +3,6 @@
          scribble/racket
          scribble/core
          scribble/html-properties
-         scribble/decode
          (for-syntax racket/base))
 (provide (except-out (all-defined-out)
                      define-declare-X))

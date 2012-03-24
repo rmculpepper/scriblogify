@@ -1,15 +1,10 @@
 #lang racket/base
-(require racket/file
-         racket/path
-         racket/cmdline
+(require racket/path
          racket/match
          racket/dict
          racket/class
-         file/sha1
          (planet clements/sxml2:1)
          (planet neil/html-parsing:1)
-         (planet neil/html-writing:1)
-         (planet ryanc/webapi:1)
          "util.rkt")
 (provide (all-defined-out))
 
