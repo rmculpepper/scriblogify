@@ -1,0 +1,325 @@
+/*
+TODO:
+ - work on spacing of boxes, examples, etc
+ */
+
+table p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+table td {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+/* ---------------------------------------- */
+/* Some inline styles */
+
+.indexlink {
+  text-decoration: none;
+}
+
+.nobreak {
+  white-space: nowrap;
+}
+
+.stt {
+  font-family: monospace;
+}
+
+pre { margin-left: 2em; }
+blockquote { margin-left: 2em; }
+
+ol          { list-style-type: decimal; }
+ol ol       { list-style-type: lower-alpha; }
+ol ol ol    { list-style-type: lower-roman; }
+ol ol ol ol { list-style-type: upper-alpha; }
+
+i {
+}
+
+.SCodeFlow {
+  display: block;
+  margin-left: 1em;
+  margin-bottom: 0em;
+  margin-right: 1em;
+  margin-top: 0em;
+  white-space: nowrap;  
+}
+
+.SVInsetFlow {
+  display: block;
+  margin-left: 0em;
+  margin-bottom: 0em;
+  margin-right: 0em;
+  margin-top: 0em;
+}
+
+.SubFlow {
+  display: block;
+  margin: 0em;
+}
+
+.boxed {
+  width: 100%;
+  background-color: #FFE0CB;
+}
+
+.hspace {
+  font-family: monospace;
+  white-space: pre;  /* RMC: why does it ever work w/o this?! */
+}
+
+.slant {
+  font-style: oblique;
+}
+
+.badlink {
+  text-decoration: underline;
+  color: red;
+}
+
+.plainlink {
+  text-decoration: none;
+  color: blue;
+}
+
+.techoutside       { text-decoration: underline; color: #b0b0b0; }
+.techoutside:hover { text-decoration: underline; color: #FF8632; }
+
+/* .techinside:hover doesn't work with FF, .techinside:hover>
+   .techinside doesn't work with IE, so use both (and IE doesn't
+   work with inherit in the second one, so use blue directly) */
+.techinside                    { color: black; }
+.techinside:hover              { color: #FF8632; }
+.techoutside:hover>.techinside { color: inherit; }
+
+.SCentered {
+  text-align: center;
+}
+
+.imageleft {
+  float: left;
+  margin-right: 0.3em;
+}
+
+.Smaller{
+  font-size: 82%;
+}
+
+.Larger{
+  font-size: 122%;
+}
+
+/* A hack, inserted to break some Scheme ids: */
+.mywbr {
+  width: 0;
+  font-size: 1px;
+}
+
+.compact li p {
+  margin: 0em;
+  padding: 0em;
+}
+
+.noborder img {
+  border: 0;
+}
+
+/* ---- from racket.css ---- */
+
+/* See the beginning of "scribble.css". */
+
+/* Monospace: */
+.RktIn, .RktRdr, .RktPn, .RktMeta,
+.RktMod, .RktKw, .RktVar, .RktSym,
+.RktRes, .RktOut, .RktCmt, .RktVal {
+  font-family: monospace;
+  white-space: inherit;
+}
+
+/* ---------------------------------------- */
+/* Racket text styles */
+
+.RktIn {
+  color: black;
+  background-color: #eeeeee;
+}
+.RktInBG {
+  background-color: #eeeeee;
+}
+.RktRdr {
+}
+.RktPn {
+  color: #843c24;  /* FIXME: change? */
+}
+.RktMeta {
+  color: black;
+}
+.RktMod {
+  color: black;
+}
+.RktOpt {
+  color: black;
+}
+.RktKw {
+  color: black;
+  font-weight: bold;
+}
+.RktErr {
+  color: red;
+  font-style: italic;
+}
+.RktVar {
+  color: #6B3013;
+  font-style: italic;
+}
+.RktSym {
+  color: #6B3013;
+}
+.RktValLink {
+  text-decoration: none;
+  color: #BB5321;
+}
+.RktModLink {
+  text-decoration: none;
+  color: #BB5321;
+}
+.RktStxLink {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.RktRes {
+  color: #52250E;
+}
+.RktVal {
+  color: #52250E; /* #c2741f; */
+}
+.RktCmt {
+  color: #688468;
+}
+
+/*
+  output-color           RktOut
+  input-color            RktIn     -- litchar
+  input-background-color RktInBG   -- litchar bg
+  no-color               RktPlain
+  reader-color           RktRdr    -- reader macros like , etc
+  result-color           RktRes
+  keyword-color          RktKw
+  comment-color          RktCmt
+  paren-color            RktPn
+  meta-color             RktMeta
+  value-color            RktVal
+  symbol-color           RktSym
+  variable-color         RktVar
+  opt-color              RktOpt
+  error-color            RktErr
+  syntax-link-color      RktStxLink
+  value-link-color       RktValLink
+  module-color           RktMod
+  module-link-color      RktModLink
+  block-color            RktBlk
+  highlighted-color      highlighted
+*/
+
+.RktOut {
+  color: #960096;
+}
+
+
+/* ---------------------------------------- */
+/* Some inline styles */
+
+.together {
+  width: 100%;
+}
+
+.prototype, .argcontract, .RBoxed {
+  white-space: nowrap;
+}
+
+.prototype td {
+  vertical-align: text-top;
+}
+.longprototype td {
+  vertical-align: bottom;
+}
+
+.RktBlk {
+  white-space: inherit;
+  text-align: left;
+}
+
+.RktBlk tr {
+  white-space: inherit;
+}
+
+.RktBlk td {
+  vertical-align: baseline;
+  white-space: inherit;
+}
+
+.argcontract td {
+  vertical-align: text-top;
+}
+
+.highlighted {
+  background-color: #ddddff;
+}
+
+.defmodule {
+  width: 100%;
+  background-color: #F5F5DC;
+}
+
+.specgrammar {
+  float: right;
+}
+
+.RBibliography td {
+  vertical-align: text-top;
+}
+
+.leftindent {
+ margin-left: 1em;
+ margin-right: 0em;
+}
+
+.insetpara {
+ margin-left: 1em;
+ margin-right: 1em;
+}
+
+.Rfilebox {
+  -moz-box-shadow: 2px 2px 6px #FFE0CB;
+  -webkit-box-shadow: 2px 2px 6px #FFE0CB;
+  -khtml-box-shadow: 2px 2px 6px #FFE0CB;
+  -o-box-shadow: 2px 2px 6px #FFE0CB;
+  box-shadow: 2px 2px 6px #FFE0CB;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  padding: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #FFEEE6;
+}
+
+.Rfiletitle {
+  text-align: right;
+  margin: 0em 0em 0em 0em;
+}
+
+.Rfilename {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  color: #96431B;
+}
+
+.Rfilecontent {
+  margin: 0em 0em 0em 0em;
+}
