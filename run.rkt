@@ -1,6 +1,7 @@
 #lang racket/base
 (require racket/cmdline
-         "main.rkt")
+         "main.rkt"
+         (prefix-in setup: "run-setup.rkt"))
 
 (define (post args)
   (define pre? #f)
@@ -26,6 +27,10 @@
    (("-v" "--verbose")
     "Verbose mode"
     (set! v? #t))
+   ("--setup"
+    "Run setup servlet (all other flags are ignored)"
+    (begin (setup:main)
+           (exit 0)))
    #:args (file)
    (scriblogify file
                 #:profile upload-profile
@@ -33,7 +38,6 @@
                 #:overwrite? overwrite?
                 #:verbose? v?
                 #:temp-dir build-dir)))
-
 
 ;; ----
 

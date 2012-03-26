@@ -16,6 +16,7 @@
          web-server/formlets
          (only-in web-server/formlets/lib pure)
          (planet ryanc/webapi:1))
+(provide main)
 
 (define auth-wc (make-web-cell #f))
 
@@ -111,6 +112,9 @@
   (wrap-page
    `(div ,@contents)))
 
+(define (done-page . _)
+  (redirect-to "/quit"))
+
 ;; ----
 
 (define (welcome-page)
@@ -167,6 +171,8 @@
                                     (redirect-to (make-url (lambda _ (welcome-page))))))])
                          "Revoke access to your accounts.")))]
                 [else '()])
+        (h3 "Done")
+        (p (a ([href "/quit"]) "Quit the setup servlet."))
         )))))
 
 (define (manage-page)
@@ -202,7 +208,9 @@
                                                     (dict-remove (or (get-pref 'profiles) null)
                                                                  name-sym))
                                           (redirect-to (make-url (lambda _ (manage-page))))))])
-                               "[delete]"))]))))))))))
+                               "[delete]"))])))))
+        (div (h3 "Done")
+             (p (a ([href "/quit"]) "Quit the setup servlet."))))))))
 
 ;; ----
 
@@ -219,11 +227,13 @@
 ;; ----
 
 (define here (this-expression-source-directory))
-(serve/servlet setup-dispatch
-               #:launch-browser? #t
-               #:quit? #t
-               #:banner? #f
-               #:port 8000
-               #:servlet-path "/setup/start"
-               #:servlet-regexp #rx"^/setup/"
-               #:extra-files-paths (list (build-path here "private" "setup")))
+
+(define (main)
+  (serve/servlet setup-dispatch
+                 #:launch-browser? #t
+                 #:quit? #t
+                 #:banner? #f
+                 #:port 8000
+                 #:servlet-path "/setup/start"
+                 #:servlet-regexp #rx"^/setup/"
+                 #:extra-files-paths (list (build-path here "private" "setup"))))
