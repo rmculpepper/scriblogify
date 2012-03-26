@@ -14,7 +14,7 @@
   (paragraph (style "TheJump" '(div))
              null))
 
-(define (blog-unique-tag tag)
+(define (blog-tag tag)
   (let ([attrs
          `((style . "display: none")
            (blogtag . ,tag))])
