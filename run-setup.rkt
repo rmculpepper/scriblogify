@@ -122,13 +122,14 @@
       `(div
         (h2 "Setup Overview")
         (p "Scriblogify is a tool for creating blog posts from Scribble documents.")
-        (p "It can be used purely as a local document processor, but it can also "
-           "be used to automatically post blog entries and upload embedded images "
+        (p "You can use Scriblogify purely as a local document processor, but you can also "
+           "use it to automatically post blog entries and upload embedded images "
            "to image hosting services. (Currently only Blogger and Picasa Web Albums "
            "are supported.)")
-        (p "A " (emph "profile") " consists of a blog" mdash "where to upload posts" mdash
+        (p "A " (em "profile") " consists of a blog" mdash "where to upload posts" mdash
            "together with, optionally, a web album" mdash
            "where to store images that are part of a post.")
+        (p (em "Warning: Use Scriblogify at your own risk!"))
         ,@(cond [oauth2
                  `((h3 "Use existing authorization")
                    (p "You have already authorized Scriblogify to access your Blogger "
