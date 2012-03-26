@@ -1,0 +1,29 @@
+body {
+  background-color: darkgray;
+}
+
+h1 {
+  font-family: "Book Antiqua", serif;
+  font-size: 400%;
+  color: darkred;
+}
+
+h2, h3 {
+  font-family: sans-serif;
+}
+
+.main_body {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5ex 10ex 5ex 10ex;
+  width: 80ex;
+  background-color: white;
+}
+
+.profile_form div {
+  margin: 1ex 0ex;
+}
+
+.profile_form_submit {
+  padding: 2ex 0ex;
+}
