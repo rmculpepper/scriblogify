@@ -27,10 +27,12 @@
 (define (get-pref sym)
   (get-preference sym (lambda () #f) 'timestamp profile-pref-file))
 (define (set-pref sym value)
-  ;; Create with permissions #o600: user rw, inaccessible to group and other
-  (unless (file-exists? profile-pref-file)
-    (call-with-output-file profile-pref-file (lambda (out) (write '() out)))
-    (file-or-directory-permissions profile-pref-file #o600))
+  (case (system-type 'os)
+    ((unix macosx)
+     ;; Create with permissions #o600: user rw, inaccessible to group and other
+     (unless (file-exists? profile-pref-file)
+       (call-with-output-file profile-pref-file (lambda (out) (write '() out)))
+       (file-or-directory-permissions profile-pref-file #o600))))
   (put-preferences (list sym) (list value) #f profile-pref-file))
 
 #|
