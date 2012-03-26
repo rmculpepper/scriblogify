@@ -1,8 +1,14 @@
 #lang racket/base
-(require (planet ryanc/webapi:1))
+(require racket/match
+         racket/class
+         racket/file
+         (planet ryanc/webapi:1))
 (provide verbose?
          the-client
-         profile-pref-file)
+         profile-pref-file
+         get-pref
+         set-pref
+         get-profile)
 
 (define verbose? (make-parameter #f))
 
@@ -38,7 +44,7 @@ where profile = (cons name-symbol
     (error 'scriblogify "unknown version: ~s" version))
   (define oauth2
     (match (get-pref 'auth)
-      [(list 'oauth2-refresh-token token)
+      [(list 'oauth2-refresh-token refresh-token)
        (oauth2/refresh-token google-auth-server the-client refresh-token)]
       [#f
        (oauth2/request-auth-code/browser google-auth-server the-client (list blogger-scope picasa-scope))]
