@@ -49,7 +49,7 @@
                   (send oauth2 validate!) ;; to update scopes
                   (web-cell-shadow auth-wc oauth2)
                   (set-pref 'auth `(oauth2-refresh-token ,(send oauth2 get-refresh-token)))
-                  (send/suspend redirect-to)
+                  (redirect/get)
                   (manage-page)))]
           [(bindings-assq #"error" bindings)
            => (lambda (err-b)
@@ -110,7 +110,7 @@
                                     name
                                     `((blogger ,(send blog get-id) ,(send blog get-title))
                                       ,(and album `(picasa ,(send album get-id) ,(send album get-title))))))
-                (begin (send/suspend redirect-to) (manage-page))])]))))
+                (begin (redirect/get) (manage-page))])]))))
 
 (define (error-page . contents)
   (wrap-page
@@ -172,7 +172,8 @@
                                     (send oauth2 revoke!)
                                     (web-cell-shadow auth-wc #f)
                                     (set-pref 'auth #f)
-                                    (redirect-to (make-url (lambda _ (welcome-page))))))])
+                                    (redirect/get)
+                                    (welcome-page)))])
                          "Revoke access to your accounts.")))]
                 [else '()])
         (h3 "Done")
@@ -211,7 +212,8 @@
                                           (set-pref 'profiles
                                                     (dict-remove (or (get-pref 'profiles) null)
                                                                  name-sym))
-                                          (redirect-to (make-url (lambda _ (manage-page))))))])
+                                          (redirect/get)
+                                          (manage-page)))])
                                "[delete]"))])))))
         (div (h3 "Done")
              (p (a ([href "/quit"]) "Quit the setup servlet."))))))))
