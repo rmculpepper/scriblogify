@@ -27,7 +27,8 @@
         (values img img)))
 
     (define/public (handle-content title content)
-      (for-each write-html content))))
+      (for-each write-html content)
+      (newline))))
 
 (define default-handler (new default-handler%))
 

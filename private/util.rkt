@@ -1,5 +1,6 @@
 #lang racket/base
-(require racket/match
+(require racket/dict
+         racket/match
          racket/class
          racket/file
          (planet ryanc/webapi:1))
@@ -49,7 +50,8 @@ where profile = (cons name-symbol
       [#f
        (oauth2/request-auth-code/browser google-auth-server the-client (list blogger-scope picasa-scope))]
       [_ (error 'scriblogify "unknown authorization")]))
-  (match (get-pref profile)
+  (define profiles (or (get-pref 'profiles) null))
+  (match (dict-ref profiles profile)
     [(list blog-info album-info)
      (values oauth2
              (match blog-info

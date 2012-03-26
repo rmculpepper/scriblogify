@@ -14,7 +14,7 @@
     (let ([local-images (find-local-images contents)])
       (for ([local-image (in-list local-images)])
         (unless (file-exists? local-image)
-          (error 'scriblogify "blog refers to local image that does not exist: ~e" local-image)))
+          (eprintf "Blog post refers to local image that does not exist: ~e" local-image)))
       (let* ([images-map (send handler handle-images tag local-images)]
              [contents (transform contents images-map)])
         (send handler handle-content title contents)))))
@@ -41,7 +41,7 @@
 ;; transform : SXMLish -> SXMLish
 (define (transform doc imgmap)
   ;; replace uses of @(the-jump) with <!--more-->
-  ;; note local images
+  ;; replace refs to local images with stored images
   (pre-post-order doc
                   `((div . ,(lambda elem
                               (let ([rs ((sxpath "self::div[@class='TheJump']") elem)])
