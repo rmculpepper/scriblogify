@@ -38,42 +38,21 @@
     (init-field profile overwrite?)
     (super-new)
 
-    ;; (list 0 blog-name album-name refresh-token/#f) -- 0 is format version
-    (define profile-info (get-preference profile (lambda () #f) 'timestamp profile-pref-file))
-    (define-values (blog-name album-name refresh-token)
-      (match profile-info
-        [(list 0 (? string? blog-name) (? string? album-name) (? string? refresh-token))
-         (values blog-name album-name refresh-token)]
-        [#f
-         (error 'scriblogify "profile not found: ~s" profile)]
-        [_
-         (error 'scriblogify "internal error: bad profile information")]))
-
-    (define my-oauth2
-      (if refresh-token
-          (oauth2/refresh-token google-auth-server the-client refresh-token)
-          (oauth2/request-auth-code/browser google-auth-server the-client (list blogger-scope picasa-scope))))
-
-    (define b-blog
-      (let ([b-user (blogger #:oauth2 my-oauth2)])
-        (or (send b-user find-blog blog-name)
-            (error 'scriblogify "could not find blog named ~s" blog-name))))
-
-    (define p-album
-      (let ([p-user (picasa #:oauth2 my-oauth2)])
-        (or (send p-user find-album album-name)
-            (error 'get-the-album "could not find album named ~s" album-name))))
+    (define-values (oauth2 b-blog p-album)
+      (get-profile profile))
 
     (define/public (handle-images tag images)
-      (for/hash ([img-path (in-list images)])
-        (let* ([name (file-identifier tag img-path)]
-               [img (or (send p-album find-photo name)
-                        (begin
-                          (when (verbose?)
-                            (eprintf "Uploading ~s as ~s.\n" img-path name))
-                          (send p-album create-photo img-path name)))]
-               [url (send img get-content-link)])
-          (values img-path url))))
+      (cond [p-album
+             (for/hash ([img-path (in-list images)])
+               (let* ([name (file-identifier tag img-path)]
+                      [img (or (send p-album find-photo name)
+                               (begin
+                                 (when (verbose?)
+                                   (eprintf "Uploading ~s as ~s.\n" img-path name))
+                                 (send p-album create-photo img-path name)))]
+                      [url (send img get-content-link)])
+                 (values img-path url)))]
+            [else (hash)]))
 
     (define/private (file-identifier tag path)
       (let ([id (substring (call-with-input-file path sha1) 0 20)])

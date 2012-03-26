@@ -18,11 +18,6 @@
 
 (define auth-wc (make-web-cell #f))
 
-(define (get-pref sym)
-  (get-preference sym (lambda () #f) 'timestamp profile-pref-file))
-(define (set-pref sym value)
-  (put-preferences (list sym) (list value) #f profile-pref-file))
-
 (define-values (setup-dispatch _setup-url)
   (dispatch-rules
    [("setup" "start") start-setup]
@@ -159,7 +154,6 @@
 
 (define (wrap-page main)
   (response/xexpr
-   ;; TODO: CSS
    `(html (head (title "Scriblogify Setup")
                 (link ([rel "stylesheet"] [type "text/css"] [href "/style.css"])))
           (body
