@@ -36,11 +36,13 @@ Here's some fish in the clouds!
    (cc-superimpose (cloud w h "lightblue")
                    (cloud (- w 10) (- h 10) "white")))
 
-@(cc-superimpose
-  (rt-superimpose (inset (lb-superimpose (inset (mycloud 300 200) 20)
-                                         (mycloud 150 100))
-                         20)
-                  (mycloud 150 100))
-  (hc-append (standard-fish 60 50 #:direction 'right #:color "red")
-             (blank 40 0)
-             (standard-fish 30 20 #:direction 'left #:color "blue")))
+@(inset
+  (cc-superimpose
+   (rt-superimpose (inset (lb-superimpose (inset (mycloud 300 200) 20)
+                                          (mycloud 150 100))
+                          20)
+                   (mycloud 150 100))
+   (hc-append (standard-fish 60 50 #:direction 'right #:color "red")
+              (blank 40 0)
+              (standard-fish 30 20 #:direction 'left #:color "blue")))
+  -40)
