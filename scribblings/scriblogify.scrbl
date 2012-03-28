@@ -19,9 +19,9 @@
 @title[#:version (my-package-version)]{Scriblogify: Scribble Your Blog}
 @author{@author+email["Ryan Culpepper" "ryanc@racket-lang.org"]}
 
-This package provides a script for processing Scribble documents into
-a form suitable for uploading as blog posts. The script can also be
-configured to do the uploading itself.
+This package provides a @tt{raco} subcommand for processing Scribble
+documents into a form suitable for uploading as blog posts. It can
+also be configured to do the uploading itself.
 
 @bold{Development} Development of this library is hosted by
 @hyperlink["http://github.com"]{GitHub} at the following project page:
