@@ -55,7 +55,8 @@
                                  (when (verbose?)
                                    (eprintf "Uploading ~s as ~s.\n" img-path name))
                                  (send p-album create-photo img-path name)))]
-                      [url (send img get-content-link)])
+                      [url (send img get-content-link)]
+                      [url (regexp-replace #rx"^https://" url "http://")])
                  (values img-path url)))]
             [else (hash)]))
 
