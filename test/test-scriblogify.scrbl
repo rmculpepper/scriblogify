@@ -1,10 +1,9 @@
 #lang scribble/manual
-@(require scribble/eval
-          scribble/racket
-          "../scribble-util.rkt"
+@(require scribble/racket
+          slideshow/pict
+          (planet ryanc/scriblogify:1/scribble-util)
           (for-syntax racket/base)
           (for-label racket))
-@(require slideshow/pict)
 
 @title{scriblogify test post}
 @author{You!}

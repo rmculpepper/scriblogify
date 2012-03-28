@@ -5,7 +5,7 @@
 #lang setup/infotab
 
 (define name "scriblogify")
-;; (define scribblings '(("scribblings/scriblogify.scrbl" (multi-page))))
+(define scribblings '(("scribblings/scriblogify.scrbl" ())))
 
 (define blurb
   '("Write your blog posts in Scribble"))
