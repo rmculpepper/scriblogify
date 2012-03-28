@@ -8,7 +8,7 @@
 (define scribblings '(("scribblings/scriblogify.scrbl" ())))
 
 (define blurb
-  '("Write your blog posts in Scribble"))
+  '("Scribble your blog."))
 (define categories '(io net xml))
 (define can-be-loaded-with 'all)
 (define primary-file "main.rkt")

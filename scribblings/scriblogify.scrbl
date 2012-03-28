@@ -108,6 +108,9 @@ process and upload your blog entries in one step:
 
 @commandline{raco scriblogify -p profile document.scrbl}
 
+Scriblogify uploads posts in ``draft'' mode, so you'll still have to
+log in and click ``Publish'' to make your post public.
+
 The following additional command-line options are relevant:
 @itemlist[
 
