@@ -171,9 +171,3 @@ displayed in abbreviated contexts and the rest of the post.
 
 Like @racket[section], but not numbered.
 }
-
-@defform[(declare-keyword id ...)]{
-
-Defines each @racket[id] so that it typesets as a syntactic form in
-code.
-}
