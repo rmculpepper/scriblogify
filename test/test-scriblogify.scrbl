@@ -10,7 +10,7 @@
 
 @(blog-tag "test")
 
-I just made my first post using Scriblogify! And I feel great!
+I just made my first post using Scriblogify!
 
 @(the-jump)
 
