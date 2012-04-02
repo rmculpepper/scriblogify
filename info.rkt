@@ -15,6 +15,8 @@
 (define required-core-version "5.2")
 (define repositories '("4.x"))
 
+(define compile-omit-paths '("samples"))
+
 (define raco-commands
   '(("scriblogify"
      (planet ryanc/scriblogify:1/run)
