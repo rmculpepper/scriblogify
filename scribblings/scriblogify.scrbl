@@ -10,13 +10,13 @@
                      scribble/decode
                      (this-package-in main scribble-util)))
 
-@(define-runtime-path sample-doc "../test/test-scriblogify.scrbl")
+@(define-runtime-path sample-doc "../samples/scribble-your-blogs.scrbl")
 @(define-runtime-path style-file "../blog-style.css")
 @(define (ttt . content) (make-element 'tt content))
 @(define (my-package-version)
    (format "~a.~a" (this-package-version-maj) (this-package-version-min)))
 
-@title[#:version (my-package-version)]{Scriblogify: Scribble Your Blog}
+@title[#:version (my-package-version)]{Scriblogify: Scribble Your Blogs}
 @author{@author+email["Ryan Culpepper" "ryanc@racket-lang.org"]}
 
 This package provides a @tt{raco} subcommand for processing Scribble
