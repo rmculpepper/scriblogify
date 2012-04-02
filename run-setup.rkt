@@ -35,8 +35,7 @@
      (let ([oauth2 (oauth2/refresh-token google-auth-server the-client refresh-token)])
        (send oauth2 validate!) ;; to update scopes
        (web-cell-shadow auth-wc oauth2))]
-    [#f (void)]
-    [other (error 'setup "Unknown authorization: ~e" other)])
+    [_ (void)])
   (welcome-page))
 
 (define (continue-oauth2 req)
@@ -48,7 +47,6 @@
                                                  #:redirect-uri "http://localhost:8000/setup/oauth2")])
                   (send oauth2 validate!) ;; to update scopes
                   (web-cell-shadow auth-wc oauth2)
-                  (set-pref 'auth `(oauth2-refresh-token ,(send oauth2 get-refresh-token)))
                   (redirect/get)
                   (manage-page)))]
           [(bindings-assq #"error" bindings)
@@ -60,64 +58,6 @@
           [else (error-page
                  `(h2 "Internal error")
                  `(p "Bad response from authorization server."))])))
-
-(define (new-profile-page)
-  (define oauth2 (web-cell-ref auth-wc))
-  (define bu (blogger #:oauth2 oauth2))
-  (define pu (and (member picasa-scope (send oauth2 get-scopes)) (picasa #:oauth2 oauth2)))
-
-  (define profile-formlet
-    (formlet
-     (div ([class "profile_form"])
-          (div (div "Choose a name for the new profile:")
-               ,(=> input-symbol
-                    name))
-          (div (div "Choose a blog:")
-               ,(=> (select-input (send bu list-blogs)
-                                  #:display (lambda (b) (send b get-title)))
-                    blog))
-          (div ,(if pu
-                    `(div "Choose an album:")
-                    `(div "Access to Picasa Web Albums not authorized."))
-               ,(=> (if pu
-                        (select-input (cons #f (send pu list-albums))
-                                      #:display (lambda (a)
-                                                  (if a
-                                                      (send a get-title)
-                                                      "(None)")))
-                        (pure #f))
-                    album))
-          (div ([class "profile_form_submit"])
-               (input ([type "submit"] [value "Create profile"] [name "submit"]))))
-     (list name blog album)))
-
-  (let ([req
-         (send/suspend
-          (lambda (k-url)
-            (wrap-page
-             `(div
-               (h2 "New Profile")
-               (form ([action ,k-url]) ,@(formlet-display profile-formlet))
-               ))))])
-    (let ([result (formlet-process profile-formlet req)])
-      (match result
-        [(list name blog album)
-         (cond [(equal? (symbol->string name) "")
-                (error-page `(p "Invalid profile name: \"" ,(symbol->string name) "\"."))]
-               [else
-                (set-pref 'profiles
-                          (dict-set (or (get-pref 'profiles) null)
-                                    name
-                                    `((blogger ,(send blog get-id) ,(send blog get-title))
-                                      ,(and album `(picasa ,(send album get-id) ,(send album get-title))))))
-                (begin (redirect/get) (manage-page))])]))))
-
-(define (error-page . contents)
-  (wrap-page
-   `(div ,@contents)))
-
-(define (done-page . _)
-  (redirect-to "/quit"))
 
 ;; ----
 
@@ -188,8 +128,31 @@
      (wrap-page
       `(div
         (h2 "Manage Profiles")
-        (p "Your profile information and authorization tokens are stored at:")
+        (p "Your setup information is stored at:")
         (pre ,(path->string profile-pref-file))
+        (div (h3 "Authorization")
+             (p "You may save an authorization token in your setup information file. "
+                "The token will be used automatically when you run Scriblogify. "
+                "If you do not save your authorization token, you will be prompted again for "
+                "authorization each time you run Scriblogify.")
+             ,@(let ([saved-auth (get-pref 'auth)])
+                 (match saved-auth
+                   [(list 'oauth2-refresh-token _)
+                    `((p "Your authorization token is currently saved.")
+                      (a ([href ,(make-url (lambda _ (set-pref 'auth #f) (redirect/get) (manage-page)))])
+                         "Remove the authorization token."))]
+                   [#f
+                    `((p "No authorization token is currently saved.")
+                      (a ([href ,(make-url
+                                  (lambda _
+                                    (set-pref 'auth `(oauth2-refresh-token ,(send oauth2 get-refresh-token)))
+                                    (redirect/get)
+                                    (manage-page)))])
+                         "Save an authorization token."))]
+                   [_
+                    `((p "Your setup information file contains an invalid authorization record.")
+                      (a ([href ,(make-url (lambda _ (set-pref 'auth #f) (redirect/get) (manage-page)))])
+                         "Remove the invalid authorization record."))])))
         (div (h3 "New Profile")
              (p (a ([href ,(make-url (lambda (req) (new-profile-page)))])
                    "Create a new profile.")))
@@ -217,6 +180,66 @@
                                "[delete]"))])))))
         (div (h3 "Done")
              (p (a ([href "/quit"]) "Quit the setup servlet."))))))))
+
+;; ----
+
+(define (new-profile-page)
+  (define oauth2 (web-cell-ref auth-wc))
+  (define bu (blogger #:oauth2 oauth2))
+  (define pu (and (member picasa-scope (send oauth2 get-scopes)) (picasa #:oauth2 oauth2)))
+
+  (define profile-formlet
+    (formlet
+     (div ([class "profile_form"])
+          (div (div "Choose a name for the new profile:")
+               ,(=> input-symbol
+                    name))
+          (div (div "Choose a blog:")
+               ,(=> (select-input (send bu list-blogs)
+                                  #:display (lambda (b) (send b get-title)))
+                    blog))
+          (div ,(if pu
+                    `(div "Choose an album:")
+                    `(div "Access to Picasa Web Albums not authorized."))
+               ,(=> (if pu
+                        (select-input (cons #f (send pu list-albums))
+                                      #:display (lambda (a)
+                                                  (if a
+                                                      (send a get-title)
+                                                      "(None)")))
+                        (pure #f))
+                    album))
+          (div ([class "profile_form_submit"])
+               (input ([type "submit"] [value "Create profile"] [name "submit"]))))
+     (list name blog album)))
+
+  (let ([req
+         (send/suspend
+          (lambda (k-url)
+            (wrap-page
+             `(div
+               (h2 "New Profile")
+               (form ([action ,k-url]) ,@(formlet-display profile-formlet))
+               ))))])
+    (let ([result (formlet-process profile-formlet req)])
+      (match result
+        [(list name blog album)
+         (cond [(equal? (symbol->string name) "")
+                (error-page `(p "Invalid profile name: \"" ,(symbol->string name) "\"."))]
+               [else
+                (set-pref 'profiles
+                          (dict-set (or (get-pref 'profiles) null)
+                                    name
+                                    `((blogger ,(send blog get-id) ,(send blog get-title))
+                                      ,(and album `(picasa ,(send album get-id) ,(send album get-title))))))
+                (begin (redirect/get) (manage-page))])]))))
+
+(define (error-page . contents)
+  (wrap-page
+   `(div ,@contents)))
+
+(define (done-page . _)
+  (redirect-to "/quit"))
 
 ;; ----
 

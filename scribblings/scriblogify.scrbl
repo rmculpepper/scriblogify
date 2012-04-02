@@ -95,14 +95,6 @@ necessary only if you want to post blog enries that have embedded
 posts won't have images or if you explicitly link to manually uploaded
 images.
 
-@emph{Note:} Authorizing Scriblogify to access your accounts gives it
-a long-lived token (a ``refresh token'' in the parlance of the OAuth
-2.0 protocol). That token is saved in your local Scriblogify
-preference file; anyone with access to that token can access your
-Blogger and (optionally) Picasa Web accounts. @emph{Do not use
-Scriblogify if you do not want this token stored in your local
-filesystem.}
-
 Once you have created a profile using the setup servlet, you can
 process and upload your blog entries in one step:
 
