@@ -66,13 +66,14 @@ the @racketmodname[slideshow/pict] library:
   (standard-fish 25 20 #:color "blue" #:direction 'left)))
 ]
 
-By Scribbling your blog entries, you get Scribble's nice code formatting,
-colorizing, and documentation links for free---well, once you've updated your
-blog's CSS (see below). If you're blogging about bleeding-edge work, there's an
-option to make Scriblogify link to the
-@hyperlink["http://pre.racket-lang.org/docs/html/"]{nightly build docs} (updated
-``daily'') instead of the @hyperlink["http://docs.racket-lang.org/"]{release
-docs} (updated every 3 months).
+By Scribbling your blog entries, you get Scribble's nice code
+formatting, colorizing, and documentation links for free---well, once
+you've updated your blog's CSS (see below). If you're blogging about
+bleeding-edge work, there's an option to make Scriblogify link to the
+@hyperlink["http://pre.racket-lang.org/docs/html/"]{nightly build
+docs} (updated daily) instead of the
+@hyperlink["http://docs.racket-lang.org/"]{release docs} (updated
+every 3 months).
 
 @hyperlink["http://planet.racket-lang.org/package-source/ryanc/scriblogify.plt/1/0/planet-docs/scriblogify/index.html"]{Scriblogify's
 documentation} has more details, including how to update your blog's CSS for
