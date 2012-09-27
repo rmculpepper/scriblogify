@@ -129,7 +129,7 @@ text box to the right, then click the ``Apply to Blog'' button.)
 
 @defmodule/this-package[main]
 
-@defproc[(scriblogify [file path-string?]
+@defproc[(scriblogify [file string?]
                       [#:profile profile (or/c symbol? #f) #f]
                       [#:link-to-pre? link-to-pre? any/c #f]
                       [#:overwrite? overwrite? any/c #f]

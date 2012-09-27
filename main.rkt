@@ -10,7 +10,7 @@
          "private/util.rkt")
 (provide/contract
  [scriblogify
-  (->* (path-string?)
+  (->* (string?)
        (#:profile (or/c symbol? #f)
         #:link-to-pre? any/c
         #:overwrite? any/c
