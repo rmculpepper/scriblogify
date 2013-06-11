@@ -66,21 +66,19 @@
 
     (define/public (handle-content title content)
       (unless title (error 'scriblogify "no title"))
-      (let loop ()
-        ;; FIXME: instead of overwrite? flag, new policy: overwrite *draft* posts,
-        ;; don't overwrite published posts.
-        (let ([post (send b-blog find-post title)])
-          (when post
-            (cond [overwrite?
-                   (when (verbose?) (eprintf "Deleting existing post titled ~s.\n" title))
-                   (send post delete)]
-                  [else (error 'scriblogify "a post already exists with that title: ~s" title)])
-            ;; Ack, bug! Deleting doesn't properly invalidate b-blog info, so we get
-            ;; an infinite loop!
-            ;;(loop)
-            )))
-      (when (verbose?) (eprintf "Uploading draft blog post with title ~s.\n" title))
-      (void (send b-blog create-html-post title content #:draft? #t)))))
+      ;; FIXME: instead of overwrite? flag, new policy: overwrite *draft* posts,
+      ;; don't overwrite published posts.
+      (cond [(send b-blog find-post title)
+             => (lambda (post)
+                  (cond [overwrite?
+                         (when (verbose?) (eprintf "Updating existing post titled ~s.\n" title))
+                         (void (send post update title content))]
+                        [else
+                         (error 'scriblogify "a post already exists with that title: ~s" title)]))]
+            [else
+             (when (verbose?) (eprintf "Uploading draft blog post with title ~s.\n" title))
+             (void (send b-blog create-html-post title content #:draft? #t))]))
+    ))
 
 (define (upload-handler profile overwrite?)
   (new upload-handler% (profile profile) (overwrite? overwrite?)))
