@@ -1,22 +1,19 @@
 #lang scribble/manual
 @(require racket/runtime-path
-          planet/scribble
-          planet/version
           scribble/struct
           (for-label racket/base
                      racket/contract
                      scribble/base
                      scribble/core
                      scribble/decode
-                     (this-package-in main scribble-util)))
+                     scriblogify
+                     scriblogify/scribble-util))
 
 @(define-runtime-path sample-doc "../samples/scribble-your-blogs.scrbl")
 @(define-runtime-path style-file "../blog-style.css")
 @(define (ttt . content) (make-element 'tt content))
-@(define (my-package-version)
-   (format "~a.~a" (this-package-version-maj) (this-package-version-min)))
 
-@title[#:version (my-package-version)]{Scriblogify: Scribble Your Blogs}
+@title{Scriblogify: Scribble Your Blogs}
 @author{@author+email["Ryan Culpepper" "ryanc@racket-lang.org"]}
 
 This package provides a @tt{raco} subcommand for processing Scribble
@@ -127,7 +124,7 @@ text box to the right, then click the ``Apply to Blog'' button.)
 
 @section[#:tag "scriblogify-api"]{Scriblogify API}
 
-@defmodule/this-package[main]
+@defmodule[scriblogify]
 
 @defproc[(scriblogify [file string?]
                       [#:profile profile (or/c symbol? #f) #f]
@@ -149,7 +146,7 @@ text box to the right, then click the ``Apply to Blog'' button.)
 The following utilities are intended for use within Scribble documents
 representing blog posts.
 
-@defmodule/this-package[scribble-util]
+@defmodule[scriblogify/scribble-util]
 
 @defproc[(the-jump)
          block?]{
