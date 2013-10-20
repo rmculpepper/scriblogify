@@ -6,6 +6,13 @@
 
 (define collection 'multi)
 (define deps '("base"
-               "webapi"))
+               "sxml"
+               "webapi"
+               "scribble-lib"
+               "compatibility-lib"
+               "web-server-lib"
+               "planet-neil-html-parsing1"
+               "planet-neil-html-writing1"))
 (define build-deps '("racket-doc"
+                     "scribble-doc"
                      "scribble-lib"))

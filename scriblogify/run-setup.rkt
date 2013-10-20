@@ -1,4 +1,4 @@
-;; Copyright 2012 Ryan Culpepper
+;; Copyright 2012-2013 Ryan Culpepper
 ;; Released under the terms of the LGPL version 3 or later.
 ;; See the file COPYRIGHT for details.
 
@@ -19,7 +19,7 @@
          web-server/http/xexpr
          web-server/formlets
          (only-in web-server/formlets/lib pure)
-         (planet ryanc/webapi:1))
+         webapi)
 (provide main)
 
 (define auth-wc (make-web-cell #f))

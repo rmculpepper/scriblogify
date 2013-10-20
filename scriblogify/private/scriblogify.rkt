@@ -1,4 +1,4 @@
-;; Copyright 2011-2012 Ryan Culpepper
+;; Copyright 2011-2013 Ryan Culpepper
 ;; Released under the terms of the LGPL version 3 or later.
 ;; See the file COPYRIGHT for details.
 
@@ -7,8 +7,8 @@
          racket/match
          racket/dict
          racket/class
-         (planet clements/sxml2:1)
-         (planet neil/html-parsing:1)
+         sxml
+         neil/html-parsing1/main
          "util.rkt")
 (provide (all-defined-out))
 

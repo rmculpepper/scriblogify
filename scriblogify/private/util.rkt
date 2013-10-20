@@ -1,4 +1,4 @@
-;; Copyright 2012 Ryan Culpepper
+;; Copyright 2012-2013 Ryan Culpepper
 ;; Released under the terms of the LGPL version 3 or later.
 ;; See the file COPYRIGHT for details.
 
@@ -7,7 +7,7 @@
          racket/match
          racket/class
          racket/file
-         (planet ryanc/webapi:1))
+         webapi)
 (provide verbose?
          the-client
          profile-pref-file

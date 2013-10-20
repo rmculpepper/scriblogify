@@ -11,6 +11,6 @@
 
 (define raco-commands
   '(("scriblogify"
-     (planet ryanc/scriblogify:1/run)
+     scriblogify/run
      "proof or upload a Scribble blog post"
      #f)))

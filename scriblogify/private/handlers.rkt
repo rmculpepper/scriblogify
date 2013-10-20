@@ -1,4 +1,4 @@
-;; Copyright 2011-2012 Ryan Culpepper
+;; Copyright 2011-2013 Ryan Culpepper
 ;; Released under the terms of the LGPL version 3 or later.
 ;; See the file COPYRIGHT for details.
 
@@ -7,8 +7,8 @@
          racket/match
          racket/file
          file/sha1
-         (planet neil/html-writing:1)
-         (planet ryanc/webapi:1)
+         neil/html-writing1/main
+         webapi
          "util.rkt")
 (provide (all-defined-out))
 
