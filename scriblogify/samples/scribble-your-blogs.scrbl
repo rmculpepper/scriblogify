@@ -1,7 +1,7 @@
 #lang scribble/manual
 @(require scribble/eval
           scribble/racket
-          (planet ryanc/scriblogify:1/scribble-util)
+          scriblogify/scribble-util
           (for-syntax racket/base)
           (for-label racket slideshow/pict))
 
@@ -22,14 +22,12 @@ blog}.
 
 @(the-jump)
 
-To get Scriblogify, just download it from
-@hyperlink["http://planet.racket-lang.org/"]{PLaneT}:
+@emph{This document has been updated to refer to the new package
+system instead of PLaneT.}
 
-@racketblock[
-(require (planet ryanc/scriblogify:1))
-]
-or
-@commandline{raco planet install ryanc scriblogify.plt 1 0}
+To get Scriblogify, install it using the following command:
+
+@commandline{raco pkg install scriblogify}
 
 The package automatically installs a @tt{raco} subcommand (@tt{raco
 scriblogify}) that can be used to configure Scriblogify and process
@@ -78,6 +76,9 @@ every 3 months).
 @hyperlink["http://planet.racket-lang.org/package-source/ryanc/scriblogify.plt/1/0/planet-docs/scriblogify/index.html"]{Scriblogify's
 documentation} has more details, including how to update your blog's CSS for
 Scribbled content and what bloggable Scribble documents look like.
+@emph{(Note: the documentation link points to the PLaneT version of
+the docs. I should change this once the new package system supports
+browsable online documentation.}
 
 You can see the source for this blog post
 @hyperlink["https://github.com/rmculpepper/scriblogify/blob/v1.0/samples/scribble-your-blogs.scrbl"]{here}. 
