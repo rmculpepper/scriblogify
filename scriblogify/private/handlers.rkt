@@ -7,7 +7,7 @@
          racket/match
          racket/file
          file/sha1
-         neil/html-writing1/main
+         html-writing
          webapi
          "util.rkt")
 (provide (all-defined-out))

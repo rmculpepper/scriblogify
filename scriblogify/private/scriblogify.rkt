@@ -8,7 +8,7 @@
          racket/dict
          racket/class
          sxml
-         neil/html-parsing1/main
+         html-parsing
          "util.rkt")
 (provide (all-defined-out))
 
