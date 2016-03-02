@@ -11,8 +11,8 @@
                "scribble-lib"
                "compatibility-lib"
                "web-server-lib"
-               "planet-neil-html-parsing1"
-               "planet-neil-html-writing1"))
+               "html-parsing"
+               "html-writing"))
 (define build-deps '("racket-doc"
                      "scribble-doc"
                      "scribble-lib"))
